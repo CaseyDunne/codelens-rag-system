@@ -13,36 +13,32 @@ st.set_page_config(
     layout="wide"
 )
 
-# custom_css = """
-# <style>
-#     /* 1. Загружаем крутой шрифт */
-#     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+custom_css = """
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-#     /* 2. Тотальный контроль: применяем ко ВСЕМ текстовым элементам (включая кнопки, карточки и ввод) */
-#     html, body, p, div, span, button, input, textarea, label, h1, h2, h3, h4, h5, h6 {
-#         font-family: 'Share Tech Mono', monospace !important;
-#     }
+    html, body, p, div, span, button, input, textarea, label, h1, h2, h3, h4, h5, h6 {
+        font-family: 'Share Tech Mono', monospace !important;
+    }
     
-#     /* 3. УМНАЯ БРОНЯ: Исключения только для иконок Streamlit (чтобы стрелочки и крестики жили) */
-#     .material-symbols-rounded, 
-#     .stIcon, 
-#     svg, 
-#     svg *, 
-#     [data-testid="collapsedControl"], 
-#     [data-testid="collapsedControl"] *, 
-#     [data-testid="stIconMaterial"] {
-#         font-family: 'Material Symbols Rounded', sans-serif !important;
-#     }
+    .material-symbols-rounded, 
+    .stIcon, 
+    svg, 
+    svg *, 
+    [data-testid="collapsedControl"], 
+    [data-testid="collapsedControl"] *, 
+    [data-testid="stIconMaterial"] {
+        font-family: 'Material Symbols Rounded', sans-serif !important;
+    }
     
-#     /* 4. Неоновый заголовок */
-#     h1 {
-#         color: #D5FF40 !important;
-#         text-shadow: 0px 0px 10px rgba(213, 255, 64, 0.5);
-#     }
-# </style>
-# """
+    h1 {
+        color: #D5FF40 !important;
+        text-shadow: 0px 0px 10px rgba(213, 255, 64, 0.5);
+    }
+</style>
+"""
 
-# st.markdown(custom_css, unsafe_allow_html=True)
+st.markdown(custom_css, unsafe_allow_html=True)
 
 ####ФУНКЦИИ И ДАННЫЕ##################################################
 def load_metrics():
