@@ -1,5 +1,5 @@
 ####ИМПОРТ##################################################
-#import search_engine
+import search_engine
 import streamlit as st
 import pandas as pd
 import time
@@ -12,6 +12,11 @@ st.set_page_config(
     page_icon="🔍",
     layout="wide"
 )
+
+####КЭШИРОВАНИЕ БД##################################################
+@st.cache_resource
+def init_search():
+    return search_engine.init_db()
 
 # custom_css = """
 # <style>
@@ -43,6 +48,9 @@ st.set_page_config(
 # """
 
 # st.markdown(custom_css, unsafe_allow_html=True)
+
+# ВЫЗОВ ИНИЦИАЛИЗАЦИИ ПРИ ЗАПУСКЕ ПРИЛОЖЕНИЯ
+init_search()
 
 ####ФУНКЦИИ И ДАННЫЕ##################################################
 def load_metrics():
@@ -120,7 +128,12 @@ with tab_search:
         else:
             try:
                 with st.spinner("Запрос обрабатывается, подождите ...", show_time=True):
-                    time.sleep(2)
+                    results = search_engine.search(
+                        query=user_query,
+                        top_k=top_k,
+                        hybrid=gibrid,
+                        alpha=0.6
+                    )
                 st.write(f"Вы искали: {user_query}")
                 st.subheader(f"Топ-{top_k} результатов:")
                 for result in results[:top_k]:
