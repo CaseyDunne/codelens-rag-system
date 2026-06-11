@@ -1,0 +1,77 @@
+[
+    {
+        "question": "hello world",
+        "relevant_chunk_ids": ["example.py:hello_world:1"],
+        "language": "en"
+    },
+    {
+        "question": "привет мир",
+        "relevant_chunk_ids": ["example.py:hello_world:1"],
+        "language": "ru"
+    },
+    {
+        "question": "greet user",
+        "relevant_chunk_ids": ["example.py:User.greet:11"],
+        "language": "en"
+    },
+    {
+        "question": "поздороваться с пользователем",
+        "relevant_chunk_ids": ["example.py:User.greet:11"],
+        "language": "ru"
+    },
+    {
+        "question": "calculate sum",
+        "relevant_chunk_ids": ["example.py:calculate_sum:4"],
+        "language": "en"
+    },
+    {
+        "question": "сложение чисел",
+        "relevant_chunk_ids": ["example.py:calculate_sum:4"],
+        "language": "ru"
+    },
+    {
+        "question": "multiply two numbers",
+        "relevant_chunk_ids": ["calculator.py:Calculator.multiply:5"],
+        "language": "en"
+    },
+    {
+        "question": "умножение",
+        "relevant_chunk_ids": ["calculator.py:Calculator.multiply:5"],
+        "language": "ru"
+    },
+    {
+        "question": "calculator add method",
+        "relevant_chunk_ids": ["calculator.py:Calculator.add:2"],
+        "language": "en"
+    },
+    {
+        "question": "класс User",
+        "relevant_chunk_ids": ["example.py:User:7"],
+        "language": "ru"
+    },
+    {
+        "question": "user class initialization",
+        "relevant_chunk_ids": ["example.py:User.__init__:8"],
+        "language": "en"
+    },
+    {
+        "question": "конструктор пользователя",
+        "relevant_chunk_ids": ["example.py:User.__init__:8"],
+        "language": "ru"
+    },
+    {
+        "question": "main function",
+        "relevant_chunk_ids": ["calculator.py:main:8"],
+        "language": "en"
+    },
+    {
+        "question": "главная функция",
+        "relevant_chunk_ids": ["calculator.py:main:8"],
+        "language": "ru"
+    },
+    {
+        "question": "класс калькулятор",
+        "relevant_chunk_ids": ["calculator.py:Calculator:1"],
+        "language": "ru"
+    }
+]
