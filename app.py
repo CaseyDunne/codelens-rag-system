@@ -3,7 +3,6 @@
 import search_engine
 import streamlit as st
 import pandas as pd
-import time
 import json
 
 ####СТРАНИЦА##################################################
