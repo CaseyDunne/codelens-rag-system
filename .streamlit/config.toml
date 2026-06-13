@@ -1,0 +1,12 @@
+[theme]
+# Главный цвет приложения (кнопки, ползунки, выделение)
+primaryColor="#D5FF40"
+
+# Главный фон страницы
+backgroundColor="#000000"
+
+# Вторичный фон (для боковой панели и карточек expander)
+secondaryBackgroundColor="#171A12"
+
+# Цвет текста
+textColor="#FFFFFF"

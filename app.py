@@ -1,5 +1,6 @@
 ####ИМПОРТ##################################################
-#import search_engine
+
+import search_engine
 import streamlit as st
 import pandas as pd
 import time
@@ -40,7 +41,17 @@ custom_css = """
 
 st.markdown(custom_css, unsafe_allow_html=True)
 
+######КЕШ#############################################################
+
+@st.cache_resource
+def init_search():
+    return search_engine.init_db()
+
+
+init_search()
+
 ####ФУНКЦИИ И ДАННЫЕ##################################################
+
 def load_metrics():
     try:
         with open("metrics.json", "r", encoding="utf-8") as f:
@@ -50,47 +61,9 @@ def load_metrics():
         return {"total_accuracy": 0, "ru_accuracy": 0, "en_accuracy": 0}
     except json.JSONDecodeError:
         return {"total_accuracy": 0, "ru_accuracy": 0, "en_accuracy": 0}
-    
-#results = search_engine.search(user_query, top_k)
-results= [
-    {
-    "path": "laavkz",
-    "type": "class",
-    "name": "User",
-    "percent": 67,
-    "code": "class User:"
-    },
-    {
-    "path": "laavkz",
-    "type": "class",
-    "name": "User",
-    "percent": 67,
-    "code": "class User:"
-    },
-    {
-    "path": "laavkz",
-    "type": "class",
-    "name": "User",
-    "percent": 67,
-    "code": "class User:"
-    },
-    {
-    "path": "laavkz",
-    "type": "class",
-    "name": "User",
-    "percent": 67,
-    "code": "class User:"
-    },
-    {
-    "path": "laavkz",
-    "type": "class",
-    "name": "User",
-    "percent": 67,
-    "code": "class User:"
-    }
-    ]
 
 ####БОКОВАЯ ПАНЕЛЬ##################################################
+
 with st.sidebar:
     st.header("⚙️ Настройки поиска")
     top_k = st.slider(
@@ -99,7 +72,7 @@ with st.sidebar:
             max_value=10,                  
             value=5)
     gibrid = st.checkbox('Гибридный поиск')
-    LLMchat = st.checkbox('LLM режим')
+    # LLMchat = st.checkbox('LLM режим')
 
 ####ЦЕНТР##################################################
 
@@ -109,45 +82,64 @@ tab_search, tab_metrics = st.tabs(["🔍 Поиск", "📊 Метрики"])
 # TAB SEARCH
 with tab_search:
     st.write("Введите запрос, чтобы найти нужный фрагмент кода.")
-    user_query = st.text_input("Например: как здесь обрабатываются ошибки авторизации?")
+    user_query = st.text_input(
+        label="Что будем искать?", 
+        placeholder="Опишите логику или вставьте фрагмент кода...")
     if st.button("Найти"):
         if user_query=="":
             st.warning('Ошибка валидации ввода. Пожалуйста введите запрос.', icon="⚠️")
         else:
             try:
                 with st.spinner("Запрос обрабатывается, подождите ...", show_time=True):
-                    time.sleep(2)
+                    results = search_engine.search(
+                        query=user_query, 
+                        top_k=top_k, 
+                        hybrid=gibrid, 
+                        alpha=0.6)
+                
                 st.write(f"Вы искали: {user_query}")
-                st.subheader(f"Топ-{top_k} результатов:")
-                for result in results[:top_k]:
-                    path = result["path"]
-                    type = result["type"]
-                    name = result["name"]
-                    percent = result["percent"]
-                    code = result["code"]
+                
+
+                if not results:
+                    st.info("По вашему запросу ничего не найдено.", icon="🤷‍♀️")
+                else:
+                    actual_count = len(results[:top_k])
+                    st.subheader(f"Топ-{actual_count} результатов:")
                     
-                    # Обновленная структура карточки с иконкой пазла и текстом "Точность"
-                    card_title = f"📂 {path} | 🧩 {type}: {name} | 🎯 Точность: {percent}%"
-                    with st.expander(card_title):
-                        st.code(code, language="python")
-                        if gibrid:
-                            st.caption("Этот фрагмент найден гибридным поиском")
-                        else:
-                            st.caption("Этот фрагмент найден стандартным поиском")
+                    for result in results[:actual_count]:
+                        path = result["path"]
+                        type = result["type"]
+                        name = result["name"]
+                        percent = result["percent"]
+                        code = result["code"]
+                        
+                        card_title = f"📂 {path} | 🧩 {type}: {name} | 🎯 Точность: {percent}%"
+                        with st.expander(card_title):
+                            st.code(code, language="python")
+                            if gibrid:
+                                st.caption("Этот фрагмент найден гибридным поиском")
+                            else:
+                                st.caption("Этот фрагмент найден стандартным поиском")
             except Exception as e:
                 st.error(f"Произошла ошибка: {e}", icon="❌")
 
 # TAB METRICS
+
 with tab_metrics:
     st.header("📊 Аналитика и качество поиска")
+    
+    if st.button("🔄 Запустить тестирование и обновить метрики", use_container_width=True):
+        with st.spinner("Прогоняем базу по эталонным вопросам. Это может занять пару минут..."):
+            search_engine.evaluate_precision()
+            st.success("Метрики успешно пересчитаны и сохранены!", icon="✅")
+    
     metrics_data = load_metrics() 
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        # Если ключа нет, .get вернет "0"
         total = metrics_data.get('total_accuracy', 0)
-        st.metric("Общая точность", f"{total}%")
+        st.metric("Precision@5 (Общая точность)", f"{total}%")
         
     with col2:
         ru_acc = metrics_data.get('ru_accuracy', 0)
@@ -159,10 +151,8 @@ with tab_metrics:
         
     st.divider() 
     
-    # 3. РИСУЕМ ГРАФИК
     st.subheader("Детализация по языкам")
     
-    # Здесь тоже используем наши безопасные переменные
     chart_data = pd.DataFrame({
         "Точность (%)": [ru_acc, en_acc] 
     }, index=["Русский язык", "Английский язык"])
