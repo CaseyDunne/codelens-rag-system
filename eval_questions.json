@@ -10,68 +10,68 @@
         "language": "ru"
     },
     {
-        "question": "greet user",
-        "relevant_chunk_ids": ["example.py:User.greet:11"],
+        "question": "sum of two numbers",
+        "relevant_chunk_ids": ["example.py:calculate_sum:6", "calculator.py:add:2", "example.py:add:87"],
         "language": "en"
     },
     {
-        "question": "поздороваться с пользователем",
-        "relevant_chunk_ids": ["example.py:User.greet:11"],
+        "question": "сложение двух чисел",
+        "relevant_chunk_ids": ["example.py:calculate_sum:6", "calculator.py:add:2", "example.py:add:87"],
         "language": "ru"
     },
     {
-        "question": "calculate sum",
-        "relevant_chunk_ids": ["example.py:calculate_sum:4"],
+        "question": "разность двух чисел",
+        "relevant_chunk_ids": ["example.py:calculate_difference:11"],
+        "language": "ru"
+    },
+    {
+        "question": "product of numbers",
+        "relevant_chunk_ids": ["example.py:calculate_product:16", "calculator.py:multiply:5", "example.py:multiply:95"],
         "language": "en"
     },
     {
-        "question": "сложение чисел",
-        "relevant_chunk_ids": ["example.py:calculate_sum:4"],
+        "question": "произведение чисел",
+        "relevant_chunk_ids": ["example.py:calculate_product:16", "calculator.py:multiply:5", "example.py:multiply:95"],
         "language": "ru"
     },
     {
-        "question": "multiply two numbers",
-        "relevant_chunk_ids": ["calculator.py:Calculator.multiply:5"],
+        "question": "division of two numbers",
+        "relevant_chunk_ids": ["example.py:calculate_division:21", "example.py:divide:99"],
         "language": "en"
     },
     {
-        "question": "умножение",
-        "relevant_chunk_ids": ["calculator.py:Calculator.multiply:5"],
+        "question": "деление чисел",
+        "relevant_chunk_ids": ["example.py:calculate_division:21", "example.py:divide:99"],
         "language": "ru"
     },
     {
-        "question": "calculator add method",
-        "relevant_chunk_ids": ["calculator.py:Calculator.add:2"],
+        "question": "check if number is even",
+        "relevant_chunk_ids": ["example.py:is_even:28"],
         "language": "en"
     },
     {
-        "question": "класс User",
-        "relevant_chunk_ids": ["example.py:User:7"],
+        "question": "проверка на чётность",
+        "relevant_chunk_ids": ["example.py:is_even:28"],
         "language": "ru"
     },
     {
-        "question": "user class initialization",
-        "relevant_chunk_ids": ["example.py:User.__init__:8"],
+        "question": "reverse string",
+        "relevant_chunk_ids": ["example.py:reverse_string:43"],
         "language": "en"
     },
     {
-        "question": "конструктор пользователя",
-        "relevant_chunk_ids": ["example.py:User.__init__:8"],
+        "question": "перевернуть строку",
+        "relevant_chunk_ids": ["example.py:reverse_string:43"],
         "language": "ru"
     },
     {
-        "question": "main function",
-        "relevant_chunk_ids": ["calculator.py:main:8"],
+        "question": "get user name",
+        "relevant_chunk_ids": ["example.py:User.get_name:74", "example.py:get_name:74"],
         "language": "en"
-    },
-    {
-        "question": "главная функция",
-        "relevant_chunk_ids": ["calculator.py:main:8"],
-        "language": "ru"
     },
     {
         "question": "класс калькулятор",
-        "relevant_chunk_ids": ["calculator.py:Calculator:1"],
+        "relevant_chunk_ids": ["example.py:Calculator:84", "calculator.py:Calculator:1"],
         "language": "ru"
     }
 ]
