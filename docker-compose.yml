@@ -1,0 +1,28 @@
+
+version: '3.8'
+
+services:
+  codelens:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: codelens-rag
+    
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./test_code:/app/test_code:ro
+      - hf_cache:/root/.cache/huggingface
+    
+    environment:
+      - PYTHONUNBUFFERED=1
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+    
+    restart: unless-stopped
+
+volumes:
+  hf_cache:
+    driver: local

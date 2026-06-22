@@ -1,5 +1,5 @@
 {
-  "total_accuracy": 0.0,
-  "ru_accuracy": 0.0,
-  "en_accuracy": 0.0
+  "total_accuracy": 73.3,
+  "ru_accuracy": 62.5,
+  "en_accuracy": 85.7
 }
