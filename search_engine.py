@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
 MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
-CHROMA_DB_PATH = "./indexer/chroma_db"
+CHROMA_DB_PATH = "./chroma_db"
 COLLECTION_NAME = "code_chunks"
 
 _model = None
