@@ -139,30 +139,42 @@ Precision@5 ограничен сверху: в среднем у вопроса
 
 ## Примеры запросов
 
-### Пример 1: поиск на русском языке
-Запрос: «Как здесь обрабатываются ошибки авторизации?»
+Все примеры — в режиме по умолчанию (гибридный поиск, alpha = 0.8). Под каждым результатом интерфейс показывает две оценки: смысловую близость (нейросеть) и совпадение слов (TF-IDF).
 
-![Пример 1](screenshots/screenshots-example1_russian.png)
+### Пример 1: запрос на русском языке
+Запрос: «где создаётся JWT токен»
 
-### Пример 2: поиск на английском языке
-Запрос: «calculate total sum with tax»
+Результат: на 1-м месте функция `create_jwt_token` из `realworld/app/services/jwt.py`. Она собирает данные пользователя, добавляет срок действия и подписывает токен секретным ключом. Запрос на русском, а код на английском — система нашла нужную функцию во втором проекте датасета.
 
-![Пример 2](screenshots/screenshots-example2_english.png)
+![Пример 1](screenshots/example1.png)
 
-### Пример 3: семантический поиск
-Запрос: «Обработка ошибок авторизации»
+### Пример 2: запрос на английском языке
+Запрос: «decode the bearer token and get its payload»
 
-![Пример 3](screenshots/screenshots-example3_semantic.png)
+Результат: на 1-м месте функция `get_token` из `gymhero/api/dependencies.py`. Она расшифровывает JWT-токен и возвращает его содержимое, а если токен неверный — возвращает ошибку доступа 403.
 
-### Пример 4: поиск по классу или сложной логике
-Запрос: «валидация пользователя»
+![Пример 2](screenshots/example2.png)
 
-![Пример 4](screenshots/screenshots-example4_class.png)
+### Пример 3: поиск только по смыслу
+Запрос: «найти пользователя по адресу электронной почты»
 
-### Пример 5: поиск на английском языке
-Запрос: «mathematical operations implementation»
+Результат: на 1-м месте метод `UserCRUDRepository.get_user_by_email` из `gymhero/crud/user.py`, который ищет пользователя в базе данных по email. Совпадение слов (TF-IDF) здесь равно 0 — ни одно слово запроса не встречается в коде. Функцию нашла только нейросеть, по смыслу.
 
-![Пример 5](screenshots/screenshots-example5_english.png)
+![Пример 3](screenshots/example3.png)
+
+### Пример 4: разные слова, один смысл
+Запрос: «block a user account so they can no longer log in»
+
+Результат: на 1-м месте метод `UserCRUDRepository.deactivate_user` из `gymhero/crud/user.py`. Он отключает пользователя, устанавливая флаг `is_active = False`. В коде нет слов «block» и «log in» — система поняла, что «заблокировать» и «деактивировать» означают одно и то же.
+
+![Пример 4](screenshots/example4.png)
+
+### Пример 5: точный технический запрос
+Запрос: «how the database connection string is built from settings»
+
+Результат: на 1-м месте функция `build_sqlalchemy_database_url_from_settings` из `gymhero/database/session.py`. Она собирает строку подключения к PostgreSQL из настроек: пользователь, пароль, адрес, порт и имя базы.
+
+![Пример 5](screenshots/example5.png)
 
 ## Роли в команде
 
