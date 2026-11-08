@@ -14,7 +14,7 @@ CodeLens — поисковый движок и расчёт метрик.
 
 Примеры:
   python search_engine.py                       # векторный поиск
-  python search_engine.py --hybrid --alpha 0.6  # гибридный поиск
+  python search_engine.py --hybrid --alpha 0.8  # гибридный поиск
   python search_engine.py --compare             # сравнение режимов (таблица для доклада)
 """
 
@@ -163,7 +163,7 @@ def vector_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
     return out
 
 
-def hybrid_search(query: str, top_k: int = 5, alpha: float = 0.6) -> List[Dict[str, Any]]:
+def hybrid_search(query: str, top_k: int = 5, alpha: float = 0.8) -> List[Dict[str, Any]]:
     """
     Гибридный поиск по всем чанкам: alpha * cos(вектор) + (1 - alpha) * TF-IDF.
     TF-IDF нормируется на максимум по запросу, чтобы обе оценки были в [0, 1].
@@ -188,7 +188,7 @@ def hybrid_search(query: str, top_k: int = 5, alpha: float = 0.6) -> List[Dict[s
     ]
 
 
-def search(query: str, top_k: int = 5, hybrid: bool = False, alpha: float = 0.6):
+def search(query: str, top_k: int = 5, hybrid: bool = False, alpha: float = 0.8):
     """Основная функция поиска для app.py."""
     if _collection is None:
         init_db()
@@ -276,7 +276,7 @@ def _load_eval(path: str) -> List[Dict[str, Any]]:
 
 
 def evaluate(eval_file: str = EVAL_FILE, k: int = 5, hybrid: bool = False,
-             alpha: float = 0.6, verbose: bool = True) -> Dict[str, Any]:
+             alpha: float = 0.8, verbose: bool = True) -> Dict[str, Any]:
     """Прогоняет тестовые вопросы и считает метрики."""
     init_db()
     if _collection is None or not _ids:
@@ -375,7 +375,7 @@ def save_metrics(metrics: Dict[str, Any], path: str = METRICS_FILE):
         json.dump(metrics, f, ensure_ascii=False, indent=2)
 
 
-def evaluate_precision(hybrid: bool = False, alpha: float = 0.6):
+def evaluate_precision(hybrid: bool = False, alpha: float = 0.8):
     """Обёртка для кнопки на странице метрик: считает и сохраняет metrics.json."""
     metrics = evaluate(EVAL_FILE, hybrid=hybrid, alpha=alpha)
     save_metrics(metrics)
@@ -411,7 +411,7 @@ if __name__ == "__main__":
     p.add_argument("--eval", default=EVAL_FILE, help="Файл с тестовыми вопросами")
     p.add_argument("--k", type=int, default=5)
     p.add_argument("--hybrid", action="store_true", help="Гибридный поиск")
-    p.add_argument("--alpha", type=float, default=0.6, help="Вес векторной части (0..1)")
+    p.add_argument("--alpha", type=float, default=0.8, help="Вес векторной части (0..1)")
     p.add_argument("--compare", action="store_true", help="Сравнить режимы поиска")
     args = p.parse_args()
 
