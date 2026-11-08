@@ -10,3 +10,7 @@ secondaryBackgroundColor="#171A12"
 
 # Цвет текста
 textColor="#FFFFFF"
+
+[client]
+# Скрыть кнопку Deploy и лишние пункты меню
+toolbarMode="minimal"
