@@ -66,8 +66,8 @@ def load_metrics():
 with st.sidebar:
     st.header("⚙️ Настройки поиска")
     top_k = st.slider("Количество результатов:", min_value=1, max_value=10, value=5)
-    hybrid = st.checkbox("Гибридный поиск (вектор + TF-IDF)")
-    alpha = st.slider("Вес векторного поиска (alpha)", 0.0, 1.0, 0.6, 0.05,
+    hybrid = st.checkbox("Гибридный поиск (вектор + TF-IDF)", value=True)
+    alpha = st.slider("Вес векторного поиска (alpha)", 0.0, 1.0, 0.8, 0.05,
                       disabled=not hybrid,
                       help="1.0 — только смысловой поиск, 0.0 — только совпадение слов")
 
