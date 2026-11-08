@@ -174,6 +174,19 @@ with tab_metrics:
             l2.metric(f"Precision@{k}", f"{v['precision_at_k']}%")
             l3.metric("MRR", v["mrr"])
 
+        # Диаграмма: столбцы рядом (stack=False), а не друг на друге
+        chart_df = pd.DataFrame({
+            lang_names.get(lang, lang).split(" ", 1)[1]: {
+                f"Hit Rate@{k}, %": v["hit_rate_at_k"],
+                f"Precision@{k}, %": v["precision_at_k"],
+            }
+            for lang, v in m["by_language"].items() if v
+        }).T
+        try:
+            st.bar_chart(chart_df, stack=False, y_label="%", height=320)
+        except TypeError:  # старый Streamlit без параметра stack
+            st.dataframe(chart_df, use_container_width=True)
+
         st.subheader("По вопросам")
         rows = [{
             "Вопрос": r["question"],
