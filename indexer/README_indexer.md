@@ -24,7 +24,7 @@
 pip install sentence-transformers chromadb
 
 # 2. Индексация (база каждый раз пересоздаётся с нуля)
-python index.py ./gymhero/gymhero
+python index.py dataset
 
 # 3. Добавить ещё один проект к уже существующей базе
 python index.py ./путь/к/другому/проекту --append

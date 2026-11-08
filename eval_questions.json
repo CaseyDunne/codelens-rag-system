@@ -1,77 +1,34 @@
 [
-    {
-        "question": "hello world",
-        "relevant_chunk_ids": ["example.py:hello_world:1"],
-        "language": "en"
-    },
-    {
-        "question": "привет мир",
-        "relevant_chunk_ids": ["example.py:hello_world:1"],
-        "language": "ru"
-    },
-    {
-        "question": "sum of two numbers",
-        "relevant_chunk_ids": ["example.py:calculate_sum:6", "calculator.py:add:2", "example.py:add:87"],
-        "language": "en"
-    },
-    {
-        "question": "сложение двух чисел",
-        "relevant_chunk_ids": ["example.py:calculate_sum:6", "calculator.py:add:2", "example.py:add:87"],
-        "language": "ru"
-    },
-    {
-        "question": "разность двух чисел",
-        "relevant_chunk_ids": ["example.py:calculate_difference:11"],
-        "language": "ru"
-    },
-    {
-        "question": "product of numbers",
-        "relevant_chunk_ids": ["example.py:calculate_product:16", "calculator.py:multiply:5", "example.py:multiply:95"],
-        "language": "en"
-    },
-    {
-        "question": "произведение чисел",
-        "relevant_chunk_ids": ["example.py:calculate_product:16", "calculator.py:multiply:5", "example.py:multiply:95"],
-        "language": "ru"
-    },
-    {
-        "question": "division of two numbers",
-        "relevant_chunk_ids": ["example.py:calculate_division:21", "example.py:divide:99"],
-        "language": "en"
-    },
-    {
-        "question": "деление чисел",
-        "relevant_chunk_ids": ["example.py:calculate_division:21", "example.py:divide:99"],
-        "language": "ru"
-    },
-    {
-        "question": "check if number is even",
-        "relevant_chunk_ids": ["example.py:is_even:28"],
-        "language": "en"
-    },
-    {
-        "question": "проверка на чётность",
-        "relevant_chunk_ids": ["example.py:is_even:28"],
-        "language": "ru"
-    },
-    {
-        "question": "reverse string",
-        "relevant_chunk_ids": ["example.py:reverse_string:43"],
-        "language": "en"
-    },
-    {
-        "question": "перевернуть строку",
-        "relevant_chunk_ids": ["example.py:reverse_string:43"],
-        "language": "ru"
-    },
-    {
-        "question": "get user name",
-        "relevant_chunk_ids": ["example.py:User.get_name:74", "example.py:get_name:74"],
-        "language": "en"
-    },
-    {
-        "question": "класс калькулятор",
-        "relevant_chunk_ids": ["example.py:Calculator:84", "calculator.py:Calculator:1"],
-        "language": "ru"
-    }
+  {"question": "Как здесь обрабатываются ошибки авторизации?", "language": "ru", "relevant_chunk_ids": ["gymhero/exceptions.py:_get_credential_exception:5", "gymhero/api/dependencies.py:get_token:35", "gymhero/api/dependencies.py:get_current_user:58", "realworld/app/api/dependencies/authentication.py:_get_authorization_header:46", "realworld/app/api/dependencies/authentication.py:_get_current_user:78"]},
+  {"question": "how is the login password checked against the stored hash", "language": "en", "relevant_chunk_ids": ["gymhero/security.py:verify_password:38", "gymhero/crud/user.py:UserCRUDRepository.authenticate_user:67", "realworld/app/services/security.py:verify_password:11", "realworld/app/models/domain/users.py:UserInDB.check_password:19"]},
+  {"question": "где создаётся JWT токен", "language": "ru", "relevant_chunk_ids": ["gymhero/security.py:create_access_token:12", "gymhero/api/routes/auth.py:login_for_access_token:19", "realworld/app/services/jwt.py:create_jwt_token:15", "realworld/app/services/jwt.py:create_access_token_for_user:27"]},
+  {"question": "decode the bearer token and get its payload", "language": "en", "relevant_chunk_ids": ["gymhero/api/dependencies.py:get_token:35", "realworld/app/services/jwt.py:get_username_from_token:35", "realworld/app/api/dependencies/authentication.py:_get_authorization_header:46"]},
+  {"question": "проверка, что пользователь является администратором", "language": "ru", "relevant_chunk_ids": ["gymhero/api/dependencies.py:get_current_superuser:105", "gymhero/crud/user.py:UserCRUDRepository.is_super_user:25"]},
+  {"question": "how passwords are hashed before saving", "language": "en", "relevant_chunk_ids": ["gymhero/security.py:get_password_hash:52", "realworld/app/services/security.py:get_password_hash:15", "realworld/app/models/domain/users.py:UserInDB.change_password:22"]},
+  {"question": "регистрация нового пользователя", "language": "ru", "relevant_chunk_ids": ["gymhero/api/routes/auth.py:register:55", "gymhero/api/routes/user.py:create_user:95", "realworld/app/api/routes/authentication.py:register:62", "realworld/app/db/repositories/users.py:UsersRepository.create_user:29"]},
+  {"question": "block a user account so they can no longer log in", "language": "en", "relevant_chunk_ids": ["gymhero/crud/user.py:UserCRUDRepository.deactivate_user:51"]},
+  {"question": "найти пользователя по адресу электронной почты", "language": "ru", "relevant_chunk_ids": ["gymhero/crud/user.py:UserCRUDRepository.get_user_by_email:11", "gymhero/api/routes/user.py:fetch_user_by_email:70", "realworld/app/db/repositories/users.py:UsersRepository.get_user_by_email:10"]},
+  {"question": "how the database connection string is built from settings", "language": "en", "relevant_chunk_ids": ["gymhero/database/session.py:build_sqlalchemy_database_url_from_settings:8", "gymhero/database/session.py:get_engine:25"]},
+  {"question": "открытие и закрытие сессии базы данных для запроса", "language": "ru", "relevant_chunk_ids": ["gymhero/database/db.py:get_db:11", "gymhero/database/db.py:get_ctx_db:32", "realworld/app/db/events.py:connect_to_db:8", "realworld/app/db/events.py:close_db_connection:20", "realworld/app/api/dependencies/database.py:_get_connection_from_pool:15"]},
+  {"question": "choose configuration depending on the environment (dev, test)", "language": "en", "relevant_chunk_ids": ["gymhero/config.py:get_settings:65", "gymhero/config.py:Settings:11", "realworld/app/core/config.py:get_app_settings:18"]},
+  {"question": "постраничный вывод: параметры skip и limit", "language": "ru", "relevant_chunk_ids": ["gymhero/api/dependencies.py:get_pagination_params:19", "gymhero/crud/base.py:CRUDRepository.get_many:53", "realworld/app/api/dependencies/articles.py:get_articles_filters:21"]},
+  {"question": "generic create, read, update, delete operations for any model", "language": "en", "relevant_chunk_ids": ["gymhero/crud/base.py:CRUDRepository:20", "gymhero/crud/base.py:CRUDRepository.create:87", "gymhero/crud/base.py:CRUDRepository.update:111"]},
+  {"question": "добавить упражнение в тренировку", "language": "ru", "relevant_chunk_ids": ["gymhero/api/routes/training_unit.py:add_exercise_to_training_unit:312", "gymhero/crud/training_unit.py:TrainingUnitCRUD.add_exercise_to_training_unit:13"]},
+  {"question": "remove a workout from a training plan", "language": "en", "relevant_chunk_ids": ["gymhero/api/routes/training_plan.py:remove_training_unit_from_training_plan:385", "gymhero/crud/training_plan.py:TrainingPlanCRUD.remove_training_unit_from_training_plan:36"]},
+  {"question": "удаление упражнения по идентификатору", "language": "ru", "relevant_chunk_ids": ["gymhero/api/routes/exercise.py:delete_exercise:232"]},
+  {"question": "list only the training plans that belong to the current user", "language": "en", "relevant_chunk_ids": ["gymhero/api/routes/training_plan.py:get_all_training_plans_for_owner:59", "gymhero/crud/base.py:CRUDRepository.get_many_for_owner:189"]},
+  {"question": "настройка логирования", "language": "ru", "relevant_chunk_ids": ["gymhero/log.py:get_logger:14", "realworld/app/core/logging.py:InterceptHandler:8", "realworld/app/core/logging.py:InterceptHandler.emit:9"]},
+  {"question": "check whether an exercise is already part of a training unit", "language": "en", "relevant_chunk_ids": ["gymhero/crud/training_unit.py:TrainingUnitCRUD.check_if_exercise_in_training_unit:77"]},
+  {"question": "добавить статью в избранное", "language": "ru", "relevant_chunk_ids": ["realworld/app/api/routes/articles/articles_common.py:mark_article_as_favorite:52", "realworld/app/db/repositories/articles.py:ArticlesRepository.add_article_into_favorites:275"]},
+  {"question": "subscribe to another author", "language": "en", "relevant_chunk_ids": ["realworld/app/api/routes/profiles.py:follow_for_user:32", "realworld/app/db/repositories/profiles.py:ProfilesRepository.add_user_into_followers:50"]},
+  {"question": "кто может редактировать или удалять статью", "language": "ru", "relevant_chunk_ids": ["realworld/app/services/articles.py:check_user_can_modify_article:22", "realworld/app/api/dependencies/articles.py:check_article_modification_permissions:51"]},
+  {"question": "build a url-friendly identifier from the article title", "language": "en", "relevant_chunk_ids": ["realworld/app/services/articles.py:get_slug_for_article:18"]},
+  {"question": "лента статей от авторов, на которых я подписан", "language": "ru", "relevant_chunk_ids": ["realworld/app/api/routes/articles/articles_common.py:get_articles_for_user_feed:27", "realworld/app/db/repositories/articles.py:ArticlesRepository.get_articles_for_user_feed:214"]},
+  {"question": "filter articles by tag, author or favorited", "language": "en", "relevant_chunk_ids": ["realworld/app/db/repositories/articles.py:ArticlesRepository.filter_articles:101", "realworld/app/api/dependencies/articles.py:get_articles_filters:21", "realworld/app/api/routes/articles/articles_resource.py:list_articles:31"]},
+  {"question": "оставить комментарий к статье", "language": "ru", "relevant_chunk_ids": ["realworld/app/api/routes/comments.py:create_comment_for_article:46", "realworld/app/db/repositories/comments.py:CommentsRepository.create_comment_for_article:61"]},
+  {"question": "return an error response when request validation fails", "language": "en", "relevant_chunk_ids": ["realworld/app/api/errors/validation_error.py:http422_error_handler:12", "realworld/app/api/errors/http_error.py:http_error_handler:6"]},
+  {"question": "проверка, что имя пользователя уже занято", "language": "ru", "relevant_chunk_ids": ["realworld/app/services/authentication.py:check_username_is_taken:5", "realworld/app/services/authentication.py:check_email_is_taken:14"]},
+  {"question": "create database tables in a migration", "language": "en", "relevant_chunk_ids": ["realworld/app/db/migrations/versions/fdf8821871d7_main_tables.py:upgrade:197", "realworld/app/db/migrations/versions/fdf8821871d7_main_tables.py:create_users_table:53", "realworld/app/db/migrations/versions/fdf8821871d7_main_tables.py:create_articles_table:99"]},
+  {"question": "подключение к базе данных при запуске приложения", "language": "ru", "relevant_chunk_ids": ["realworld/app/db/events.py:connect_to_db:8", "realworld/app/core/events.py:create_start_app_handler:10"]},
+  {"question": "convert snake_case field names to camelCase in JSON", "language": "en", "relevant_chunk_ids": ["realworld/app/models/domain/rwmodel.py:convert_field_to_camel_case:10", "realworld/app/models/domain/rwmodel.py:RWModel.Config:18"]}
 ]

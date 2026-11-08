@@ -46,7 +46,7 @@ venv\Scripts\activate           # Windows
 pip install -r requirements.txt
 
 # 4. Проиндексируйте кодовую базу (база каждый раз пересоздаётся с нуля)
-python index.py indexer/gymhero/gymhero
+python index.py dataset
 
 # 5. Запустите веб-интерфейс
 streamlit run app.py
@@ -62,7 +62,18 @@ streamlit run app.py
 docker compose up
 ```
 
-При первом запуске контейнер индексирует папку из переменной `INDEX_DIR` (по умолчанию — датасет gymhero) и запускает UI. Повторные запуски используют сохранённую базу. Чтобы переиндексировать, удалите папку `chroma_db`.
+При первом запуске контейнер индексирует папку из переменной `INDEX_DIR` (по умолчанию — `dataset`) и запускает UI. Повторные запуски используют сохранённую базу. Чтобы переиндексировать, удалите папку `chroma_db`.
+
+## Датасет
+
+Папка `dataset/` — два открытых FastAPI-проекта (лицензия MIT), всего 119 `.py`-файлов:
+
+| Проект | Что это | Файлов |
+|---|---|---|
+| `dataset/gymhero` | [gymhero](https://github.com/JakubPluta/gymhero) — API для планирования тренировок | 47 |
+| `dataset/realworld` | [fastapi-realworld-example-app](https://github.com/nsidnev/fastapi-realworld-example-app), папка `app/` — бэкенд блог-платформы (статьи, комментарии, подписки) | 72 |
+
+Два проекта с похожими задачами (пользователи, JWT, пароли, работа с БД), но разной архитектурой — так проверяется, что поиск находит нужный код, а не просто «любой код про авторизацию».
 
 ## Стратегия чанкования
 
@@ -92,9 +103,9 @@ docker compose up
 Метрики считаются командой:
 
 ```bash
-python search_engine.py --eval eval_questions_gymhero.json            # векторный поиск
-python search_engine.py --eval eval_questions_gymhero.json --hybrid   # гибридный
-python search_engine.py --eval eval_questions_gymhero.json --compare  # таблица сравнения режимов
+python search_engine.py            # векторный поиск
+python search_engine.py --hybrid   # гибридный
+python search_engine.py --compare  # таблица сравнения режимов
 ```
 
 Результат сохраняется в `metrics.json` и показывается на вкладке «Метрики» в интерфейсе (там же есть разбивка по вопросам).
@@ -107,7 +118,7 @@ python search_engine.py --eval eval_questions_gymhero.json --compare  # табл
 | **MRR** | Насколько высоко стоит первый правильный ответ (1 — всегда на первом месте) |
 | **Latency** | Время ответа на каждый запрос: среднее, p95, максимум |
 
-Результаты на датасете gymhero (35 файлов с кодом, 155 чанков, 20 вопросов — 10 на русском, 10 на английском):
+Результаты на датасете `dataset` (119 файлов, 320 чанков, 32 вопроса — 16 на русском, 16 на английском):
 
 | Режим | Precision@5 | Hit Rate@5 | MRR | Hit Rate@5 (ru) | Hit Rate@5 (en) | Среднее время |
 |---|---|---|---|---|---|---|
@@ -115,8 +126,8 @@ python search_engine.py --eval eval_questions_gymhero.json --compare  # табл
 | Гибридный, alpha=0.6 | | | | | | |
 
 Тестовые наборы:
-- `eval_questions_gymhero.json` — 20 вопросов по датасету gymhero (FastAPI-сервис);
-- `eval_questions.json` — 15 простых вопросов по папке `test_code` (для быстрой проверки).
+- `eval_questions.json` — 32 вопроса по датасету `dataset`. Набор составлен командой: к каждому вопросу вручную подобраны все подходящие фрагменты кода в обоих проектах;
+- `eval_questions_test_code.json` — 15 простых вопросов по папке `test_code` (для быстрой проверки: `python index.py test_code`, затем `python search_engine.py --eval eval_questions_test_code.json`).
 
 ## Примеры запросов
 

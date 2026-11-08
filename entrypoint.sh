@@ -10,7 +10,7 @@ echo "=========================================="
 
 DB_PATH="/app/chroma_db"
 # Какую папку индексировать (задаётся в docker-compose.yml через INDEX_DIR)
-INDEX_DIR="${INDEX_DIR:-/app/test_code}"
+INDEX_DIR="${INDEX_DIR:-/app/dataset}"
 
 if [ ! -d "$DB_PATH" ] || [ -z "$(ls -A "$DB_PATH" 2>/dev/null)" ]; then
     echo ""
