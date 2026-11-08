@@ -26,8 +26,6 @@ custom_css = """
 
     .material-symbols-rounded,
     .stIcon,
-    svg,
-    svg *,
     [data-testid="collapsedControl"],
     [data-testid="collapsedControl"] *,
     [data-testid="stIconMaterial"] {
@@ -166,11 +164,15 @@ with tab_metrics:
 
         st.divider()
         st.subheader("По языкам")
-        by_lang = pd.DataFrame({
-            lang: {f"Precision@{k}": v["precision_at_k"], f"Hit Rate@{k}": v["hit_rate_at_k"]}
-            for lang, v in m["by_language"].items() if v
-        }).T
-        st.bar_chart(by_lang)
+        lang_names = {"ru": "🇷🇺 Русские вопросы", "en": "🇬🇧 Английские вопросы"}
+        for lang, v in m["by_language"].items():
+            if not v:
+                continue
+            st.markdown(f"**{lang_names.get(lang, lang)}** · {v['n']} вопросов")
+            l1, l2, l3 = st.columns(3)
+            l1.metric(f"Hit Rate@{k}", f"{v['hit_rate_at_k']}%")
+            l2.metric(f"Precision@{k}", f"{v['precision_at_k']}%")
+            l3.metric("MRR", v["mrr"])
 
         st.subheader("По вопросам")
         rows = [{
