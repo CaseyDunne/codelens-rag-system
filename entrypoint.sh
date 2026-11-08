@@ -9,13 +9,15 @@ echo "  CodeLens RAG System - Starting..."
 echo "=========================================="
 
 DB_PATH="/app/chroma_db"
+# Какую папку индексировать (задаётся в docker-compose.yml через INDEX_DIR)
+INDEX_DIR="${INDEX_DIR:-/app/dataset}"
 
 if [ ! -d "$DB_PATH" ] || [ -z "$(ls -A "$DB_PATH" 2>/dev/null)" ]; then
     echo ""
     echo "[INFO] Database not found or empty."
-    echo "[INFO] Indexing test_code directory..."
+    echo "[INFO] Indexing $INDEX_DIR ..."
     echo ""
-    python index.py /app/test_code
+    python index.py "$INDEX_DIR"
     echo ""
     echo "[SUCCESS] Indexing completed!"
     echo ""
